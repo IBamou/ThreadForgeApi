@@ -7,11 +7,10 @@ use App\Http\Requests\InputRequest\StoreInputRequest;
 use App\Http\Requests\InputRequest\UpdateInputRequest;
 use App\Http\Resources\InputResource;
 use App\Models\Input;
-use Illuminate\Http\Request;
 
 class InputController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -38,6 +37,7 @@ class InputController extends Controller
         $input->load('user');
 
         return response()->json([
+            'message' => 'Blueprint created successfully.',
             'Input' => InputResource::make($input),
         ], 201);
     }
@@ -70,6 +70,7 @@ class InputController extends Controller
         $input->load('user');
 
         return response()->json([
+            'message' => 'Blueprint updated successfully.',
             'Input' => InputResource::make($input),
         ], 200);
     }
@@ -84,7 +85,7 @@ class InputController extends Controller
         $input->delete();
 
         return response()->json([
-            'message' => 'Input archived successfully.'
+            'message' => 'Input archived successfully.',
         ], 200);
     }
 
@@ -109,7 +110,7 @@ class InputController extends Controller
         $input->forceDelete();
 
         return response()->json([
-            'message' => 'Input deleted successfully.'
+            'message' => 'Input deleted successfully.',
         ], 200);
     }
 
@@ -118,7 +119,7 @@ class InputController extends Controller
         $archived_Inputs = auth()->user()->inputs()->onlyTrashed()->with('user')->get();
 
         return response()->json([
-            'archived-Inputs' => InputResource::collection($archived_Inputs)
+            'archived-Inputs' => InputResource::collection($archived_Inputs),
         ], 200);
     }
 }

@@ -41,4 +41,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Input::class);
     }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function configurations(): HasMany
+    {
+        return $this->hasMany(Configuration::class);
+    }
 }
