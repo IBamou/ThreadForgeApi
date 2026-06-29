@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlueprintController;
+use App\Http\Controllers\Api\InputController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{blueprint}/forceDelete', 'forceDelete')->name('blueprints.forceDelete')->withTrashed();
     });
 
+    Route::controller(InputController::class)->prefix('/inputs')->group(function () {
+        Route::get('/', 'index')->name('inputs.index');
+        Route::post('/store', 'store')->name('inputs.store');
+        Route::get('/archived', 'archived')->name('inputs.archived');
+        Route::get('/{input}', 'show')->name('inputs.show');
+        Route::put('/{input}/update', 'update')->name('inputs.update');
+        Route::delete('/{input}/archive', 'archive')->name('inputs.archive');
+        Route::post('/{input}/restore', 'restore')->name('inputs.restore')->withTrashed();
+        Route::delete('/{input}/forceDelete', 'forceDelete')->name('inputs.forceDelete')->withTrashed();
+    });
 });
