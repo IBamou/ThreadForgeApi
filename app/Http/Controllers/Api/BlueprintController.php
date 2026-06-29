@@ -7,7 +7,6 @@ use App\Http\Requests\BlueprintRequest\StoreBlueprintRequest;
 use App\Http\Requests\BlueprintRequest\UpdateBlueprintRequest;
 use App\Http\Resources\BlueprintResource;
 use App\Models\Blueprint;
-use Illuminate\Http\Request;
 
 class BlueprintController extends Controller
 {
@@ -38,6 +37,7 @@ class BlueprintController extends Controller
         $blueprint->load('user');
 
         return response()->json([
+            'message' => 'Blueprint created successfully.',
             'blueprint' => BlueprintResource::make($blueprint),
         ], 201);
     }
@@ -70,6 +70,7 @@ class BlueprintController extends Controller
         $blueprint->load('user');
 
         return response()->json([
+            'message' => 'Blueprint updated successfully.',
             'blueprint' => BlueprintResource::make($blueprint),
         ], 200);
     }
@@ -84,7 +85,7 @@ class BlueprintController extends Controller
         $blueprint->delete();
 
         return response()->json([
-            'message' => 'Blueprint archived successfully.'
+            'message' => 'Blueprint archived successfully.',
         ], 200);
     }
 
@@ -109,7 +110,7 @@ class BlueprintController extends Controller
         $blueprint->forceDelete();
 
         return response()->json([
-            'message' => 'Blueprint deleted successfully.'
+            'message' => 'Blueprint deleted successfully.',
         ], 200);
     }
 
@@ -118,7 +119,7 @@ class BlueprintController extends Controller
         $archived_blueprints = auth()->user()->blueprints()->onlyTrashed()->with('user')->get();
 
         return response()->json([
-            'archived-blueprints' => BlueprintResource::collection($archived_blueprints)
+            'archived-blueprints' => BlueprintResource::collection($archived_blueprints),
         ], 200);
     }
 }

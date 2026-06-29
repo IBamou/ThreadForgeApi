@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlueprintController;
 use App\Http\Controllers\Api\InputController;
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +39,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{input}/archive', 'archive')->name('inputs.archive');
         Route::post('/{input}/restore', 'restore')->name('inputs.restore')->withTrashed();
         Route::delete('/{input}/forceDelete', 'forceDelete')->name('inputs.forceDelete')->withTrashed();
+    });
+
+    Route::controller(PostController::class)->prefix('/posts')->group(function () {
+        Route::get('/', 'index')->name('posts.index');
+        Route::post('/store', 'store')->name('posts.store');
+        Route::get('/archived', 'archived')->name('posts.archived');
+        Route::get('/{post}', 'show')->name('posts.show');
+        Route::put('/{post}/update', 'update')->name('posts.update');
+        Route::patch('/{post}/updateStatus', 'updateStatus')->name('posts.updateStatus');
+        Route::delete('/{input}/archive', 'archive')->name('posts.archive');
+        Route::post('/{input}/restore', 'restore')->name('posts.restore')->withTrashed();
+        Route::delete('/{input}/forceDelete', 'forceDelete')->name('posts.forceDelete')->withTrashed();
     });
 });
