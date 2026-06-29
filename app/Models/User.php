@@ -17,7 +17,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * Get the attributes that should be cast.
@@ -32,7 +32,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function blueprints(): HasMany {
+    public function blueprints(): HasMany
+    {
         return $this->hasMany(Blueprint::class);
+    }
+
+    public function inputs(): HasMany
+    {
+        return $this->hasMany(Input::class);
     }
 }
